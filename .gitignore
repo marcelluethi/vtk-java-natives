@@ -3,4 +3,5 @@
 .metals
 metals*
 out/*
-**/src/main/resources/
+**/src/main/resources
+!**/src/main/resources/**/README.md
