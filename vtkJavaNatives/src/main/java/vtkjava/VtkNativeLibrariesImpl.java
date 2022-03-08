@@ -66,7 +66,13 @@ public abstract class VtkNativeLibrariesImpl {
 	 *             if anything goes seriously wrong
 	 */
 	protected void onInitializeStart() throws VtkJavaNativeLibraryException {
-
+		// // Loads mawt.so
+		Toolkit.getDefaultToolkit();
+		// // Loads jawt.so - this seems to be required on some systems
+		try {
+			System.loadLibrary("jawt");
+		} catch (UnsatisfiedLinkError ignored) {
+		}
 	}
 
 	/**
@@ -109,13 +115,6 @@ public abstract class VtkNativeLibrariesImpl {
 	 *             if anything goes seriously wrong
 	 */
 	protected void onInitializeEnd() throws VtkJavaNativeLibraryException {
-		// // Loads mawt.so
-		Toolkit.getDefaultToolkit();
-		// // Loads jawt.so - this is explicitly required in JRE 7
-		try {
-			System.loadLibrary("jawt");
-		} catch (UnsatisfiedLinkError ignored) {
-		}
 	}
 
 	public Runnable getVerifierRunnable() {
