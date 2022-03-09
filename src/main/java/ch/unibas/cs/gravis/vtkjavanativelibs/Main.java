@@ -1,11 +1,9 @@
-package vtkjava;
+package ch.unibas.cs.gravis.vtkjavanativelibs;
 
-import static vtkjava.VtkNativeLibraries.MAJOR_VERSION;
-import static vtkjava.VtkNativeLibraries.MINOR_VERSION;
-import vtkjava.InitializationMode.*;
-import vtk.*;
+import java.io.File;
 
-
+import static ch.unibas.cs.gravis.vtkjavanativelibs.VtkNativeLibraries.MAJOR_VERSION;
+import static ch.unibas.cs.gravis.vtkjavanativelibs.VtkNativeLibraries.MINOR_VERSION;
 
 
 class Main {
@@ -17,8 +15,9 @@ class Main {
             exitWithError("Cannot determine the platform you are running on.");
         }
 
+        File nativeDir = new File(System.getProperty("user.home") + File.separator +".nativelibs");
         try {
-            VtkNativeLibraries.initialize(InitializationMode.WARN_VERBOSE);            
+            VtkNativeLibraries.initialize(nativeDir);
             System.out.println("Initialization done, ");
         } catch (Throwable t) {
             System.err.println("Initialization failed with " + t.getClass().getSimpleName() + ", stacktrace follows.");
@@ -26,6 +25,8 @@ class Main {
             System.err.println("stacktrace above.");
             System.exit(1);
         }
+
+        System.out.println(new vtk.vtkVersion().GetVTKVersion());
     }
 
     private static void exitWithError(String... msgs) {

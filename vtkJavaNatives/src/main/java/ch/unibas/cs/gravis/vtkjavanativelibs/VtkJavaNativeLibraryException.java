@@ -19,7 +19,7 @@
  * which means that care must be taken to synchronize both in case of changes.
  */
 
-package vtkjava;
+package ch.unibas.cs.gravis.vtkjavanativelibs;
 
 public class VtkJavaNativeLibraryException extends Exception {
     private static final long serialVersionUID = 1L;

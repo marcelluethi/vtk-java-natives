@@ -1,6 +1,19 @@
 ThisBuild / organization := "ch.unibas.cs.gravis"
 ThisBuild / version      := "0.0.1-SNAPSHOT"
-ThisBuild / scalaVersion := "2.13.7"
+ThisBuild / crossPaths := false
+ThisBuild / autoScalaLibrary := false
+ThisBuild / javacOptions ++= Seq("--release", "8") 
+ThisBuild / versionScheme := Some("semver-spec")
+ThisBuild / homepage :=  Some(url("https://scalismo.org"))
+ThisBuild / licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
+ThisBuild / scmInfo := Some(
+      ScmInfo(url("https://github.com/unibas-gravis/vtk-java-natives"), "git@github.com:unibas-gravis/vtk-java-natives.git")
+    )
+ThisBuild / developers := List(
+      Developer("marcelluethi", "marcelluethi", "marcel.luethi@unibas.ch", url("https://github.com/marcelluethi"))
+    )
+ThisBuild / publishMavenStyle := true
+ThisBuild / publishTo := Some(Opts.resolver.sonatypeSnapshots)
 ThisBuild / resolvers    := Seq(
     "sonatype-release" at "https://oss.sonatype.org/content/repositories/releases",
     "jzy3d-release" at "https://maven.jzy3d.org/releases",

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package vtkjava;
+package ch.unibas.cs.gravis.vtkjavanativelibs;
 
 import java.io.*;
 import java.net.URL;
@@ -22,29 +22,26 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.util.Arrays;
 
-import static vtkjava.VtkNativeLibraries.MAJOR_VERSION;
-import static vtkjava.VtkNativeLibraries.MINOR_VERSION;
+import static ch.unibas.cs.gravis.vtkjavanativelibs.VtkNativeLibraries.MAJOR_VERSION;
+import static ch.unibas.cs.gravis.vtkjavanativelibs.VtkNativeLibraries.MINOR_VERSION;
 
 public class Util {
 	private Util() {
 	}
 
-	public static final File nativeDir = new File(System.getProperty("user.home")
-			+ File.separator + ".vtkjavanatives"
-			+ File.separator + "native-libs-" + MAJOR_VERSION + "." + MINOR_VERSION);
 
-	public static File createNativeDirectory(String prefix, File parent) throws VtkJavaNativeLibraryException {
+	public static File createNativeDirectory(File nativeLibraryBaseDirectory) throws VtkJavaNativeLibraryException {
 
-		Throwable error = null;
+		File nativeLibraryDirectory  = new File(nativeLibraryBaseDirectory, "vtkjavanatives-" +MAJOR_VERSION + "." +MINOR_VERSION);
 		try {
-			if (!nativeDir.exists()) {
-				nativeDir.mkdirs();
+			if (!nativeLibraryDirectory.exists()) {
+				nativeLibraryDirectory.mkdirs();
 			}
 		} catch (Throwable t) {
 			throw new VtkJavaNativeLibraryException(
 					"Unable to create directory for native libs", t);
 		}
-		return nativeDir;
+		return nativeLibraryDirectory;
 	}
 
 	public static byte[] getDigest(URL url) throws VtkJavaNativeLibraryException, IOException {

@@ -1,7 +1,9 @@
 **/target/
 .bloop
 .metals
+.idea
 metals*
 out/*
 **/src/main/resources
 !**/src/main/resources/**/README.md
+*.log

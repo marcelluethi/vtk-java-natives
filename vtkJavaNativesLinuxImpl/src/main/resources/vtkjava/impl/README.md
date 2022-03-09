@@ -1,1 +1,0 @@
-Native libraries for linux should be placed in this directory

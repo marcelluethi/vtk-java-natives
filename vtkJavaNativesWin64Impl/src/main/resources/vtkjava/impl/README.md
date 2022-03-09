@@ -1,1 +1,0 @@
-Native libraries for windows should be placed in this directory

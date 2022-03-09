@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package vtkjava;
+package ch.unibas.cs.gravis.vtkjavanativelibs;
+
 
 public class Platform {
     // Utility class only, can't be instantiated
