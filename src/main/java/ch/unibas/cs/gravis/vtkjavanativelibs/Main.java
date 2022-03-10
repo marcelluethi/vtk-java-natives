@@ -1,5 +1,7 @@
 package ch.unibas.cs.gravis.vtkjavanativelibs;
 
+import vtk.vtkPanel;
+
 import java.io.File;
 
 import static ch.unibas.cs.gravis.vtkjavanativelibs.VtkNativeLibraries.MAJOR_VERSION;
@@ -26,7 +28,12 @@ class Main {
             System.exit(1);
         }
 
-        System.out.println(new vtk.vtkVersion().GetVTKVersion());
+        try {
+            System.out.println(new vtk.vtkVersion().GetVTKVersion());
+        } catch (Throwable t) {
+            System.out.println("Could not invoke vtk Methode" +t.getMessage());
+            t.printStackTrace();
+        }
     }
 
     private static void exitWithError(String... msgs) {

@@ -76,7 +76,15 @@ lazy val vtkJavaNativesLinuxImpl = (project in file("vtkJavaNativesLinuxImpl"))
         )
     )
 
-
+lazy val vtkJavaNativesMacOSImpl = (project in file("vtkJavaNativesMacOSImpl"))
+  .dependsOn(vtkJavaNatives, vtkJar)
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.google.auto.service" % "auto-service" % "1.0.1",
+      "org.jogamp.gluegen" % "gluegen-rt-natives-macosx-universal" % "v2.4.0-rc4",
+      "org.jogamp.jogl" % "jogl-all-natives-macosx-universal" % "v2.4.0-rc4",
+    )
+  )
 
 /*
  * User facing package to use native libraries on Windows
@@ -93,13 +101,21 @@ lazy val vtkJavaNativesLinux = (project in file("vtkJavaNativesLinux"))
     .dependsOn(vtkJar, vtkJavaNatives, vtkJavaNativesLinuxImpl)
     .aggregate(vtkJar, vtkJavaNatives, vtkJavaNativesLinuxImpl)
 
+/*
+ * User facing package to use native libraries on Windows
+ */
+lazy val vtkJavaNativesMacOS = (project in file("vtkJavaNativesMacOS"))
+  .dependsOn(vtkJar, vtkJavaNatives, vtkJavaNativesMacOSImpl)
+  .aggregate(vtkJar, vtkJavaNatives, vtkJavaNativesMacOSImpl)
+
+
 
 /*
  * User facing package to use native libraries on Windows
  */ 
 lazy val vtkJavaNativesAll = (project in file("vtkJavaNativesAll"))
-    .dependsOn(vtkJar, vtkJavaNatives, vtkJavaNativesLinuxImpl, vtkJavaNativesWin64Impl)
-    .aggregate(vtkJar, vtkJavaNatives, vtkJavaNativesLinuxImpl, vtkJavaNativesWin64Impl)
+    .dependsOn(vtkJar, vtkJavaNatives, vtkJavaNativesLinuxImpl, vtkJavaNativesWin64Impl, vtkJavaNativesMacOSImpl)
+    .aggregate(vtkJar, vtkJavaNatives, vtkJavaNativesLinuxImpl, vtkJavaNativesWin64Impl, vtkJavaNativesMacOSImpl)
 
 
 
