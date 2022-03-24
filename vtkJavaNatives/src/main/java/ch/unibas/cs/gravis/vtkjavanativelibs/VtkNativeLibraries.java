@@ -16,6 +16,8 @@
 
 package ch.unibas.cs.gravis.vtkjavanativelibs;
 
+import com.jogamp.common.jvm.JNILibLoaderBase;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -58,7 +60,28 @@ public class VtkNativeLibraries {
         } catch (UnsatisfiedLinkError ignored) {
         }
 
-        for (URL libraryUrl : impl.getLibraries()) {
+        for (URL libraryUrl : impl.getJoglLibraries()) {
+            String nativeName = libraryUrl.getFile();
+            File file = new File(nativeLibraryDir, nativeName.substring(nativeName.lastIndexOf('/') + 1, nativeName.length()));
+            try {
+                Util.copyUrlToFile(libraryUrl, file);
+            } catch (IOException e) {
+                throw new VtkJavaNativeLibraryException("Error while copying library " + nativeName, e);
+            }
+
+            Runtime.getRuntime().load(file.getAbsolutePath());
+
+            // we register the library as loaded in jogl, as otherwise it will try to load it again.
+            String joglName =  getBasename(file);
+            if (joglName.startsWith("lib")) {
+                joglName = joglName.replace("lib", "" );
+            }
+            JNILibLoaderBase.addLoaded(joglName);
+
+            Runtime.getRuntime().load(file.getAbsolutePath());
+        }
+
+        for (URL libraryUrl : impl.getVtkLibraries()) {
             String nativeName = libraryUrl.getFile();
             File file = new File(nativeLibraryDir, nativeName.substring(nativeName.lastIndexOf('/') + 1, nativeName.length()));
             try {
@@ -71,6 +94,12 @@ public class VtkNativeLibraries {
         }
     }
 
+
+    private static String getBasename(File file) {
+        String filename = file.getName().toString();
+        String[] tokens = filename.split("\\.(?=[^\\.]+$)");
+        return tokens[0];
+    }
 
     private static VtkNativeLibrariesImpl loadImplementation(String platform) throws VtkJavaNativeLibraryException {
         ServiceLoader<VtkNativeLibrariesImpl> implLoader = ServiceLoader.load(VtkNativeLibrariesImpl.class);

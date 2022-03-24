@@ -28,7 +28,7 @@ public class VtkNativeLibrariesImplMacOS implements VtkNativeLibrariesImpl {
         return "9.1";
     }
 
-    public List<URL> getLibraries() {
+    public List<URL> getVtkLibraries() {
         List<String> libraryList = new LinkedList<>();
 
 
@@ -255,6 +255,24 @@ public class VtkNativeLibrariesImplMacOS implements VtkNativeLibrariesImpl {
         libraryList.add("libvtkViewsContext2D-9.1.dylib");
         libraryList.add("libvtkViewsInfovis-9.1.dylib");
 
+
+        Class clazz =  this.getClass();
+        return libraryList
+                .stream()
+                .map(libraryName -> clazz.getResource(libraryName))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<URL> getJoglLibraries() {
+        List<String> libraryList = new LinkedList<>();
+
+        libraryList.add("libgluegen_rt.dylib");
+        libraryList.add("libnativewindow_awt.dylib");
+        libraryList.add("libnativewindow_macosx.dylib");
+        libraryList.add("libjogl_desktop.dylib");
+        libraryList.add("libjogl_mobile.dylib");
+        libraryList.add("libnewt_head.dylib");
 
         Class clazz =  this.getClass();
         return libraryList
