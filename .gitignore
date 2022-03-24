@@ -5,4 +5,8 @@
 metals*
 out/*
 !**/src/main/resources/**/README.md
+**/*.dll
+**/*.dylib
+**/*.so
+**/*.exe
 *.log

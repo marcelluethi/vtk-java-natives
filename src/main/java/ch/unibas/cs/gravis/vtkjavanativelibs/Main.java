@@ -1,5 +1,6 @@
 package ch.unibas.cs.gravis.vtkjavanativelibs;
 
+import vtk.rendering.jogl.vtkJoglPanelComponent;
 import vtk.vtkPanel;
 
 import java.io.File;
@@ -30,6 +31,7 @@ class Main {
 
         try {
             System.out.println(new vtk.vtkVersion().GetVTKVersion());
+            new vtkJoglPanelComponent();
         } catch (Throwable t) {
             System.out.println("Could not invoke vtk Methode" +t.getMessage());
             t.printStackTrace();

@@ -19,7 +19,10 @@ public interface  VtkNativeLibrariesImpl {
 	 *
 	 * @return a list of URLs to the libraries
 	 */
-	List<URL> getLibraries();
+	List<URL> getVtkLibraries();
+
+
+	List<URL> getJoglLibraries();
 
 	/**
 	 * A list of supported platforms

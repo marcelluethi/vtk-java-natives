@@ -28,7 +28,7 @@ public class VtkNativeLibrariesImplLinux implements VtkNativeLibrariesImpl {
         return "9.1";
     }
 
-    public List<URL> getLibraries() {
+    public List<URL> getVtkLibraries() {
         List<String> libraryList = new LinkedList<>();
         libraryList.add("libvtkDICOMParser-9.1.so");
         libraryList.add("libvtkdoubleconversion-9.1.so");
@@ -274,6 +274,26 @@ public class VtkNativeLibrariesImplLinux implements VtkNativeLibrariesImpl {
         libraryList.add("libvtkViewsInfovisJava.so");
         libraryList.add("libvtkIOExportGL2PSJava.so");
         libraryList.add("libvtkIOExportPDFJava.so");
+
+        Class clazz =  this.getClass();
+        return libraryList
+                .stream()
+                .map(libraryName -> clazz.getResource(libraryName))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<URL> getJoglLibraries() {
+        List<String> libraryList = new LinkedList<>();
+
+        libraryList.add("libgluegen_rt.so");
+        libraryList.add("libnativewindow_awt.so");
+        libraryList.add("libnativewindow_drm.so");
+        libraryList.add("libnativewindow_x11.so");
+        libraryList.add("libjogl_desktop.so");
+        libraryList.add("libjogl_mobile.so");
+        libraryList.add("libnewt_head.so");
+        libraryList.add("libnewt_drm.so");
 
         Class clazz =  this.getClass();
         return libraryList

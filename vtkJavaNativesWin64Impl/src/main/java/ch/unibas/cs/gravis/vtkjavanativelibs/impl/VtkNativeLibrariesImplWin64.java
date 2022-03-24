@@ -27,7 +27,7 @@ public class VtkNativeLibrariesImplWin64 implements VtkNativeLibrariesImpl {
         return "9.1";
     }
 
-    public List<URL> getLibraries() {
+    public List<URL> getVtkLibraries() {
         List<String> libraryList = new LinkedList<>();
         libraryList.add("ucrtbased.dll");
         libraryList.add("VCRUNTIME140D.dll");
@@ -277,6 +277,24 @@ public class VtkNativeLibrariesImplWin64 implements VtkNativeLibrariesImpl {
         libraryList.add("vtkViewsInfovisJava.dll");
         libraryList.add("vtkIOExportGL2PSJava.dll");
         libraryList.add("vtkIOExportPDFJava.dll");
+
+        Class clazz =  this.getClass();
+        return libraryList
+                .stream()
+                .map(libraryName -> clazz.getResource(libraryName))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<URL> getJoglLibraries() {
+        List<String> libraryList = new LinkedList<>();
+
+        libraryList.add("gluegen_rt.dll");
+        libraryList.add("nativewindow_awt.dll");
+        libraryList.add("nativewindow_win32.dll");
+        libraryList.add("jogl_desktop.dll");
+        libraryList.add("jogl_mobile.dll");
+        libraryList.add("newt_head.dll");
 
         Class clazz =  this.getClass();
         return libraryList
