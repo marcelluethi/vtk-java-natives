@@ -1,5 +1,5 @@
 ThisBuild / organization := "ch.unibas.cs.gravis"
-ThisBuild / version      := "0.1.1"
+ThisBuild / version      := "0.2-SNAPSHOT"
 ThisBuild / crossPaths := false
 ThisBuild / autoScalaLibrary := false
 ThisBuild / javacOptions ++= Seq("--release", "8") 
@@ -83,6 +83,15 @@ lazy val vtkJavaNativesMacOSImpl = (project in file("vtkJavaNativesMacOSImpl"))
     )
   )
 
+
+lazy val vtkJavaNativesMacOSM1Impl = (project in file("vtkJavaNativesMacOSM1Impl"))
+  .dependsOn(vtkJavaNatives)
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.google.auto.service" % "auto-service" % "1.0.1"
+    )
+  )
+
 /*
  * User facing package to use native libraries on Windows
  */ 
@@ -105,15 +114,18 @@ lazy val vtkJavaNativesMacOS = (project in file("vtkJavaNativesMacOS"))
   .dependsOn(vtkJavaNatives, vtkJavaNativesMacOSImpl)
   .aggregate(vtkJavaNatives, vtkJavaNativesMacOSImpl)
 
+lazy val vtkJavaNativesMacOSM1 = (project in file("vtkJavaNativesMacOSM1"))
+  .dependsOn(vtkJavaNatives, vtkJavaNativesMacOSM1Impl)
+  .aggregate(vtkJavaNatives, vtkJavaNativesMacOSM1Impl)
+
 
 
 /*
  * User facing package to use native libraries on Windows
  */ 
 lazy val vtkJavaNativesAll = (project in file("vtkJavaNativesAll"))
-    .dependsOn(vtkJavaNatives, vtkJavaNativesLinuxImpl, vtkJavaNativesWin64Impl, vtkJavaNativesMacOSImpl)
-    .aggregate(vtkJavaNatives, vtkJavaNativesLinuxImpl, vtkJavaNativesWin64Impl, vtkJavaNativesMacOSImpl)
-
+    .dependsOn(vtkJavaNatives, vtkJavaNativesLinuxImpl, vtkJavaNativesWin64Impl, vtkJavaNativesMacOSImpl, vtkJavaNativesMacOSM1Impl)
+    .aggregate(vtkJavaNatives, vtkJavaNativesLinuxImpl, vtkJavaNativesWin64Impl, vtkJavaNativesMacOSImpl, vtkJavaNativesMacOSM1Impl)
 
 
 /*

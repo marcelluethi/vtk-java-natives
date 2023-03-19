@@ -5,6 +5,7 @@
 metals*
 out/*
 !**/src/main/resources/**/README.md
+vtkJavaNativesMacOSM1Impl/src/main/resources
 **/*.dll
 **/*.dylib
 **/*.so

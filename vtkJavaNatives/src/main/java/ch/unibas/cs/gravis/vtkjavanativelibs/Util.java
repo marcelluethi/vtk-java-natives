@@ -32,7 +32,7 @@ public class Util {
 
 	public static File createNativeDirectory(File nativeLibraryBaseDirectory) throws VtkJavaNativeLibraryException {
 
-		File nativeLibraryDirectory  = new File(nativeLibraryBaseDirectory, "vtkjavanatives-" +MAJOR_VERSION + "." +MINOR_VERSION);
+		File nativeLibraryDirectory  = new File(nativeLibraryBaseDirectory, "vtkjavanatives-" +Platform.getPlatform() +"-" +MAJOR_VERSION + "." +MINOR_VERSION);
 		try {
 			if (!nativeLibraryDirectory.exists()) {
 				nativeLibraryDirectory.mkdirs();
