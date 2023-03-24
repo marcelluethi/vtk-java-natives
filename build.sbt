@@ -1,9 +1,9 @@
 ThisBuild / organization := "ch.unibas.cs.gravis"
-ThisBuild / version      := "0.2-SNAPSHOT"
+ThisBuild / version      := "0.2-RC1"
 ThisBuild / crossPaths := false
 ThisBuild / autoScalaLibrary := false
 ThisBuild / javacOptions ++= Seq("--release", "8") 
-ThisBuild / versionScheme := Some("semver-spec")
+ThisBuild / versionScheme := Some("early-semver")
 ThisBuild / homepage :=  Some(url("https://scalismo.org"))
 ThisBuild / licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
 ThisBuild / scmInfo := Some(
